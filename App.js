@@ -1,12 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
 import MapView from 'react-native-maps';
 import { StyleSheet, Text, View } from 'react-native';
+import Home from './Components/Home';
+import {NavigationContainer} from '@react-navigation/native';
+import { createNativeStackNavigator} from '@react-navigation/native-stack'
+import Login from './Components/Login';
+import Map from './Components/Map';
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <MapView style={styles.map}/>
-    </View>
+  <NavigationContainer>
+    <Stack.Navigator initialRouteName="Login" screenOptions={{ 
+       headerShown: false
+    }}>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{title: 'Welcome'}}
+      />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Map" component={Map} />
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 }
 
