@@ -18,8 +18,10 @@ export default function Home({route,navigation}) {
             <Pressable 
                 style={styles.signup}
                 onPress={() =>{
-                    navigation.dispatch(
-                        StackActions.replace('Map')
+                      navigation.navigate(
+                        "Map",{
+                          "identifiant":Identifiant
+                        }
                       );
                     }
                 }

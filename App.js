@@ -6,6 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack'
 import Login from './Components/Login';
 import Map from './Components/Map';
+import Post from './Components/Post';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
       />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Map" component={Map} />
+      <Stack.Screen name="Post" component={Post} />
     </Stack.Navigator>
   </NavigationContainer>
   );
