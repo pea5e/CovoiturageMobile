@@ -6,7 +6,7 @@ import { Dimensions } from "react-native";
 
 const width = Dimensions.get('window').width;
 export default function Home({route,navigation}) {
-    
+    const Identifiant = route.params.identifiant;
   return (
     <View style={styles.container}>
         <Image
@@ -30,8 +30,10 @@ export default function Home({route,navigation}) {
             <Pressable 
                 style={styles.login}
                 onPress={()=>{
-                          navigation.dispatch(
-                            StackActions.replace('Map')
+                          navigation.navigate(
+                            "Map",{
+                              "identifiant":Identifiant
+                            }
                           );
                         }
                 }

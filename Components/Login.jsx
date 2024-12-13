@@ -62,7 +62,7 @@ export default function Login({route,navigation}) {
                 style={styles.login}
                 onPress={()=>{
                           navigation.dispatch(
-                            StackActions.replace('Home')
+                            StackActions.replace('Home',{identifiant:Identifiant})
                           );
                         }
                 }

@@ -4,7 +4,8 @@ import { StyleSheet, Text, View ,PermissionsAndroid ,Pressable,Linking} from 're
 import React, { useState , useEffect} from 'react';
 import * as Location from 'expo-location';
 
-export default function Map() {
+export default function Map({route,navigation}) {
+    const Identifiant = route.params.identifiant;
     const [location, setLocation] = useState(null);
     const [address, setAddress] = useState();
     const [hidden, setHidden] = useState(1);
@@ -72,12 +73,19 @@ export default function Map() {
     </MapView>
     <Pressable style={[{display:(hidden===1?"none":"flex")},styles.letsgo]} 
         onPress={()=>{
-            Linking
-                .openURL(`https://www.google.com/maps/dir/${location.coords.latitude},${location.coords.longitude}/${target.latitude},${target.longitude}`)
-                .catch(err => console.error('Error', err));
+          navigation.navigate(
+            "Post",{
+              "identifiant":Identifiant,
+              "from":{'x':location.coords.latitude,'y':location.coords.longitude},
+              "to":{'x':target.latitude,'y':target.longitude}
+            }
+          );
+            // Linking
+            //     .openURL(`https://www.google.com/maps/dir/${location.coords.latitude},${location.coords.longitude}/${target.latitude},${target.longitude}`)
+            //     .catch(err => console.error('Error', err));
         }}  
     >
-        <Text style={{color:"#fff",textAlign:"center",fontSize:20,}}>Allons-y?</Text>
+        <Text style={{color:"#fff",textAlign:"center",fontSize:20,}}>Let's GO?</Text>
     </Pressable>
   </View>
   );
