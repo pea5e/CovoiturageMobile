@@ -6,7 +6,15 @@ import { Dimensions } from "react-native";
 
 const width = Dimensions.get('window').width;
 export default function Home({route,navigation}) {
-    const Identifiant = route.params.identifiant;
+    var token ;
+    try{
+      token  = route.params.token;
+      console.log(token)
+    }
+    catch(e)
+    {
+      token = "";
+    }
   return (
     <View style={styles.container}>
         <Image
@@ -20,7 +28,7 @@ export default function Home({route,navigation}) {
                 onPress={() =>{
                       navigation.navigate(
                         "Map",{
-                          "identifiant":Identifiant
+                          "token":token
                         }
                       );
                     }
@@ -33,9 +41,9 @@ export default function Home({route,navigation}) {
                 style={styles.login}
                 onPress={()=>{
                           navigation.navigate(
-                            "Map",{
-                              "identifiant":Identifiant
-                            }
+                            "Voyage",{
+                                "token":token
+                              }
                           );
                         }
                 }

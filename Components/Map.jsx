@@ -10,6 +10,15 @@ export default function Map({route,navigation}) {
     const [address, setAddress] = useState();
     const [hidden, setHidden] = useState(1);
     const [target, setTarget] = useState(null);
+    var token ;
+    try{
+      token  = route.params.token;
+      console.log(token)
+    }
+    catch(e)
+    {
+      token = "";
+    }
   
     useEffect(() => {
       const getPermissions = async () => {
@@ -75,6 +84,7 @@ export default function Map({route,navigation}) {
         onPress={()=>{
           navigation.navigate(
             "Post",{
+              "token":token,
               "identifiant":Identifiant,
               "from":{'x':location.coords.latitude,'y':location.coords.longitude},
               "to":{'x':target.latitude,'y':target.longitude}

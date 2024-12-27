@@ -11,7 +11,7 @@ export default function Login({route,navigation}) {
     
 
     const [Token,setToken] = React.useState(''); 
-    const [visible, setVisible] = React.useState(false);
+    // const [visible, setVisible] = React.useState(false);
     const [Identifiant, setIdentifiant] = React.useState('');
     const [Password, setPassword] = React.useState('');
     // readtoken();
@@ -60,11 +60,62 @@ export default function Login({route,navigation}) {
             </Pressable>
             <Pressable 
                 style={styles.login}
-                onPress={()=>{
-                          navigation.dispatch(
-                            StackActions.replace('Home',{identifiant:Identifiant})
-                          );
-                        }
+                onPress={async ()=>{
+                  try{
+                    console.log("login")
+                    // var req = await fetch("http://10.0.2.2:8095/graphql",{
+                    //   method: 'POST',
+                    //   headers: { 'Content-Type': 'application/json' },
+                    //   body: JSON.stringify({
+                    //     query: `query{
+                    //         Authenticate(
+                    //           email:${Identifiant}
+                    //           password:${Password}
+                    //         )
+                    //       }`
+                    //   })
+                    // })
+                    // let status =  req.status
+                    // console.log(status)
+                    //  req.json()
+                    // fetch("http://10.0.2.2:8095/").then(res=>res.text()).then(res=>console.log(res))
+                    fetch("http://10.0.2.2:8095/graphql",{
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          query: `query{
+                              Authenticate(
+                                email:"${Identifiant}"
+                                password:"${Password}"
+                              )
+                            }`
+                        })
+                      }).then(res=>
+                      {
+                        return res.json()
+                      }
+                      )
+                    .then(tok=>
+                      {
+                        if(tok.data.Authenticate!=null)
+                          {
+                            navigation.dispatch(
+                              StackActions.replace('Home', {token: tok.data.Authenticate})
+                            );
+                          }
+                          else
+                          {
+                            toast("Invalid credentials");
+                          }
+                    })
+                  }
+                  catch(err){
+                    console.log(err);
+                  }
+                          // navigation.dispatch(
+                          //   StackActions.replace('Home',{identifiant:Identifiant})
+                          // );
+                  }
                 }
             >
                 <Text style={styles.logintext} >Login</Text>

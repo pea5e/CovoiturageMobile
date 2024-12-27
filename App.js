@@ -7,6 +7,8 @@ import { createNativeStackNavigator} from '@react-navigation/native-stack'
 import Login from './Components/Login';
 import Map from './Components/Map';
 import Post from './Components/Post';
+import { Signup } from './Components/Signup';
+import Voyages from './Components/Voyages';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -21,7 +23,9 @@ export default function App() {
         options={{title: 'Welcome'}}
       />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen options={{headerShown: true}} name="Signup" component={Signup} />
       <Stack.Screen name="Map" component={Map} />
+      <Stack.Screen options={{headerShown: true}} name="Voyage" component={Voyages} />
       <Stack.Screen name="Post" component={Post} />
     </Stack.Navigator>
   </NavigationContainer>
