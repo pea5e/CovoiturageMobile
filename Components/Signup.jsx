@@ -12,7 +12,7 @@ export  function Signup({navigation}) {
     const [Sexe, setSexe] = React.useState('');
     const [Password, setPassword] = React.useState('');
     const [Cin, setCin] = React.useState('');
-    const [Age, setAge] = React.useState('');
+    const [Age, setAge] = React.useState('0');
 
     
     // var def = () => {
@@ -134,7 +134,7 @@ export  function Signup({navigation}) {
                 placeholder="Telephone"
                 keyboardType="numeric"
                 />
-            <TextInput
+            {/* <TextInput
                 style={styles.label}
                 onChangeText={text => {
                   if(text.length<=10)
@@ -143,7 +143,7 @@ export  function Signup({navigation}) {
                 value={Age}
                 placeholder="Age"
                 keyboardType="numeric"
-            />
+            /> */}
         </View>
         <View style={styles.register}>
             <Pressable 
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: '#791617',
+    backgroundColor: '#89c227',
     marginRight:10,
     width: 233,
   },

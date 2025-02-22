@@ -86,7 +86,7 @@ export default function Post({route,navigation}) {
             <View 
                 style={styles.readableInput}
             >
-                <Text style={styles.inputtext} >{time/3600|0} : {time/60%60|0} : {time%60|0}</Text>
+                <Text style={styles.inputtext} >{time<36000?'0':'' }{time/3600|0} : {time/60%60<10?'0':''}{time/60%60|0} : {time%60<10?'0':''}{time%60|0}</Text>
             </View>
         </View>
         <View style={{ flexDirection:"column"}}>
@@ -111,56 +111,28 @@ export default function Post({route,navigation}) {
         <Text style={{color:"#fff",textAlign:"center",fontSize:20,}}>itinéraire</Text>
     </Pressable>
     <Pressable style={styles.letsgo} 
-                    onPress={async ()=>{
+                    onPress={ ()=>{
                           
-                            // var req = await fetch("http://10.0.2.2:8095/graphql",{
-                            //   method: 'POST',
-                            //   headers: { 'Content-Type': 'application/json' },
-                            //   body: JSON.stringify({
-                            //     query: `query{
-                            //         Authenticate(
-                            //           email:${Identifiant}
-                            //           password:${Password}
-                            //         )
-                            //       }`
-                            //   })
-                            // })
-                            // let status =  req.status
-                            // console.log(status)
-                            //  req.json()
-                            // fetch("http://10.0.2.2:8095/").then(res=>res.text()).then(res=>console.log(res))
-                            fetch("http://10.0.2.2:8099/graphql",{
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json',
-                                  'Authorization' : `Bearer ${token}`
-                                 },
-                                body: JSON.stringify({
-                                  query: `mutation{
+                                navigation.dispatch(
+                                  StackActions.replace('Time', {token: token,
+                                    query: `mutation{
                                       saveVoyage(voyage:{
                                         destinationX:${To.x}
                                         destinationY:${To.y}
                                         emplacementX:${From.x}
                                         emplacementY:${From.y}
-                                        labelDestination:"${destination}"
-                                        labelEmplacement:"${target}"
+                                        labelDestination:"${target}"
+                                        labelEmplacement:"${destination}"
                                         Tarif:${price}
                                         Duree:${time|0}
-                                        Distance:${distance|0}
-                                      })
-                                    } `
-                                })
-                              }).then(res=>res.text()).then(res=>console.log(res)).catch(e=>console.log(e))
-                                navigation.dispatch(
-                                  StackActions.replace('Home', {token: token})
+                                        Distance:${distance|0}`
+                                  })
                                 );
-                                  // navigation.dispatch(
-                                  //   StackActions.replace('Home',{identifiant:Identifiant})
-                                  // );
                           }
                         }
             
     >
-        <Text style={{color:"#fff",textAlign:"center",fontSize:20,}}>Annoncez</Text>
+        <Text style={{color:"#fff",textAlign:"center",fontSize:20,}}>Planifiez</Text>
     </Pressable>
   </View>
   );
@@ -178,7 +150,7 @@ const styles = StyleSheet.create({
   letsgo:{
     width:200,
     height:50,
-    backgroundColor:"#3e3dcc",
+    backgroundColor:"#89c227",
     justifyContent:"center",
     borderRadius:16,
     marginBottom:10

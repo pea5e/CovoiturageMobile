@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import MapView ,{ Marker} from 'react-native-maps';
-import { StyleSheet, Text, View ,PermissionsAndroid ,Pressable,Linking} from 'react-native';
+import { StyleSheet, Text, View ,PermissionsAndroid ,Pressable,Linking, Alert} from 'react-native';
 import React, { useState , useEffect} from 'react';
 import * as Location from 'expo-location';
 
@@ -43,7 +43,7 @@ export default function Map({route,navigation}) {
           console.log("Please grant location permissions");
           return;
         }
-        let currentLocation = await Location.getCurrentPositionAsync({});
+        let currentLocation = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest, maximumAge: 10000});
         setLocation(currentLocation);
         console.log("Location:");
         console.log(currentLocation);
@@ -58,6 +58,7 @@ export default function Map({route,navigation}) {
     )
   return (
   <View style={styles.container}>
+    <MapView></MapView>
     <MapView style={styles.map}  initialRegion={{
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
@@ -76,7 +77,7 @@ export default function Map({route,navigation}) {
         {hidden===0 && <Marker 
             coordinate={{latitude: target.latitude,
                 longitude: target.longitude}}
-                pinColor={"blue"}
+                pinColor={"#89c227"}
                 title={"Ta Destination"}
         />}
     </MapView>
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
     bottom:20,
     width:200,
     height:50,
-    backgroundColor:"#791617",
+    backgroundColor:"#89c227",
     justifyContent:"center",
     borderRadius:16
   }

@@ -9,6 +9,9 @@ import Map from './Components/Map';
 import Post from './Components/Post';
 import { Signup } from './Components/Signup';
 import Voyages from './Components/Voyages';
+import ChooseTime from './Components/ChooseTime';
+import Conducteur from './Components/Conducteur';
+import { Form } from './Components/Form';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -25,7 +28,10 @@ export default function App() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen options={{headerShown: true}} name="Signup" component={Signup} />
       <Stack.Screen name="Map" component={Map} />
-      <Stack.Screen options={{headerShown: true}} name="Voyage" component={Voyages} />
+      <Stack.Screen options={{headerShown: true}} name="Voyages" component={Voyages} />
+      <Stack.Screen options={{headerShown: true}} name="Form" component={Form} />
+      <Stack.Screen name="Conducteur" component={Conducteur} />
+      <Stack.Screen name="Time" component={ChooseTime} />
       <Stack.Screen name="Post" component={Post} />
     </Stack.Navigator>
   </NavigationContainer>

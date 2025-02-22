@@ -1,11 +1,56 @@
-import React, { Component } from 'react';
+import React, { Component, useState,useEffect } from 'react';
 import * as FileSystem from 'expo-file-system';
 import { StyleSheet, Text, View, Pressable  ,Image ,TextInput} from 'react-native';
 import { StackActions } from '@react-navigation/native';
 import { Dimensions } from "react-native";
+import * as Notifications from 'expo-notifications';
+import * as Device from 'expo-device';
 
 const width = Dimensions.get('window').width;
 export default function Home({route,navigation}) {
+
+  const [expoPushToken, setExpoPushToken] = useState('');
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => {
+      setExpoPushToken(token);
+      console.log('Expo Push Token:', token);
+    });
+
+    // Listen for incoming notifications
+    const notificationListener = Notifications.addNotificationReceivedListener(notification => {
+      console.log('Received Notification:', notification);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener);
+    };
+  }, []);
+
+  async function registerForPushNotificationsAsync() {
+    // if (Device.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      console.log(finalStatus)
+  
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+  
+      if (finalStatus !== 'granted') {
+        Alert.alert('Error', 'Failed to get push token for push notifications!');
+        return;
+      }
+  
+      const t = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log("token",t)
+      return t;
+    // } else {
+    //   Alert.alert('Error', 'Must use a physical device for push notifications');
+    // }
+  }
+
     var token ;
     try{
       token  = route.params.token;
@@ -27,7 +72,7 @@ export default function Home({route,navigation}) {
                 style={styles.signup}
                 onPress={() =>{
                       navigation.navigate(
-                        "Map",{
+                        "Conducteur",{
                           "token":token
                         }
                       );
@@ -41,7 +86,7 @@ export default function Home({route,navigation}) {
                 style={styles.login}
                 onPress={()=>{
                           navigation.navigate(
-                            "Voyage",{
+                            "Voyages",{
                                 "token":token
                               }
                           );
@@ -93,7 +138,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: '#791617',
+    backgroundColor: '#89c227',
     marginLeft:10
   },
   logintext:{

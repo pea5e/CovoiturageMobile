@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: '#791617',
+    backgroundColor: '#89c227',
     marginLeft:10
   },
   logintext:{
